@@ -11,4 +11,9 @@ bot.start((ctx) => {
     });
 });
 
+bot.command('referral', (ctx) => {
+    const referralLink = `https://fastidious-zuccutto-1ef5e6.netlify.app/register?ref=${ctx.from.username}`;
+    ctx.reply(`Share this link to invite friends: ${referralLink}`);
+});
+
 bot.launch();
