@@ -1,3 +1,4 @@
+// telegram-bot/bot.js
 const { Telegraf } = require('telegraf');
 const bot = new Telegraf(process.env.TELEGRAM_BOT_TOKEN);
 
@@ -5,14 +6,14 @@ bot.start((ctx) => {
     ctx.reply('Welcome! Click the button below to open the web app.', {
         reply_markup: {
             inline_keyboard: [
-                [{ text: 'Open Web App', url: process.env.FRONTEND_URL }]
+                [{ text: 'Open Web App', web_app: { url: process.env.FRONTEND_URL } }]
             ]
         }
     });
 });
 
 bot.command('referral', (ctx) => {
-    const referralLink = `https://cryptobattle.netlify.app/register?ref=${ctx.from.username}`;
+    const referralLink = `${process.env.FRONTEND_URL}/register?ref=${ctx.from.username}`;
     ctx.reply(`Share this link to invite friends: ${referralLink}`);
 });
 
