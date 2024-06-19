@@ -5,14 +5,14 @@ bot.start((ctx) => {
     ctx.reply('Welcome! Click the button below to open the web app.', {
         reply_markup: {
             inline_keyboard: [
-                [{ text: 'Open Web App', url: 'https://fastidious-zuccutto-1ef5e6.netlify.app/' }]
+                [{ text: 'Open Web App', url: process.env.FRONTEND_URL }]
             ]
         }
     });
 });
 
 bot.command('referral', (ctx) => {
-    const referralLink = `https://fastidious-zuccutto-1ef5e6.netlify.app/register?ref=${ctx.from.username}`;
+    const referralLink = `https://cryptobattle.netlify.app/register?ref=${ctx.from.username}`;
     ctx.reply(`Share this link to invite friends: ${referralLink}`);
 });
 
