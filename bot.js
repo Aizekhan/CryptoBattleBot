@@ -4,6 +4,7 @@ const bot = new Telegraf(process.env.TELEGRAM_BOT_TOKEN);
 
 bot.start(async (ctx) => {
     try {
+        console.log('Received /start command from user:', ctx.from);
         const response = await axios.post(`${process.env.BACKEND_URL}/api/auth/telegram`, {
             telegramId: ctx.from.id,
             username: ctx.from.username,
@@ -11,6 +12,7 @@ bot.start(async (ctx) => {
         });
 
         const token = response.data.token;
+        console.log('Received token from backend:', token);
         ctx.reply('Welcome! Click the button below to open the web app.', {
             reply_markup: {
                 inline_keyboard: [
@@ -26,12 +28,14 @@ bot.start(async (ctx) => {
 
 bot.command('referral', async (ctx) => {
     try {
+        console.log('Received /referral command from user:', ctx.from);
         const response = await axios.post(`${process.env.BACKEND_URL}/api/users/referral`, {
             telegramId: ctx.from.id,
             username: ctx.from.username
         });
 
         const referralLink = `${process.env.FRONTEND_URL}/register?ref=${response.data.referralCode}`;
+        console.log('Generated referral link:', referralLink);
         ctx.reply(`Share this link to invite friends: ${referralLink}`);
     } catch (error) {
         console.error('Error creating referral link:', error);
